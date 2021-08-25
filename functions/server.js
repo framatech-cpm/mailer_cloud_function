@@ -29,7 +29,7 @@ exports.sendToApi  = functions.pubsub.schedule('every minute').onRun(async(reque
         }
 
         axios(config_email).then(function(data){
-            response.status(200).send(data.data)
+            response.send(data.data)
         }).catch(function(error){
             // Error 😨
             if (error.response) {
@@ -42,7 +42,7 @@ exports.sendToApi  = functions.pubsub.schedule('every minute').onRun(async(reque
                 */
                 let se_err = error.response.data.error
                 console.log("Ship Engine Error Complete", se_err)
-                response.status(200).send({ se_err: se_err})
+                response.send({ se_err: se_err})
             } else if (error.request) {
                 /*
                 * The request was made but no response was received, `error.request`
@@ -50,11 +50,11 @@ exports.sendToApi  = functions.pubsub.schedule('every minute').onRun(async(reque
                 * of http.ClientRequest in Node.js
                 */
                 console.log("Error Axios Request", error.request);
-                response.status(200).send({ error: error.request})
+                response.send({ error: error.request})
             } else {
                 // Something happened in setting up the request and triggered an Error
                 console.log('Error Message', error.message);
-                response.status(200).send({ error: error.message})
+                response.send({ error: error.message})
             }
         })
     }
