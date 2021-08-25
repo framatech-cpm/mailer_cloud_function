@@ -5,7 +5,7 @@ admin.initializeApp();
 exports.sendToApi  = functions.pubsub.schedule('every minute').onRun(async(request, response) => {
     const db = admin.firestore();
     
-    const urlFramaTechUAT = "https://mail.framatech.canplast.net/api/get_email_firebase"
+    const urlFramaTechUAT = "https://mail.framatech.canplast.net/api/send_massive_invoice"
     const collection =  await db.collection('queue_emails').limit(1).get()
     let emails = []
     collection.forEach((doc)=>{
@@ -19,7 +19,7 @@ exports.sendToApi  = functions.pubsub.schedule('every minute').onRun(async(reque
     })
 
     if(emails.length <=0){
-        response.status(200).send({message: "There's not emails on queue"})
+        response.send({message: "There's not emails on queue"})
     }else{
 
         let config_email = {
