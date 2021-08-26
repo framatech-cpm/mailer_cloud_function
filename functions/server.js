@@ -2,7 +2,7 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const axios = require("axios")
 admin.initializeApp();
-exports.sendToApi  = functions.pubsub.schedule('every minute').onRun(async(request, response) => {
+exports.sendToApi  = functions.pubsub.schedule('every 3 minutes').onRun(async(request, response) => {
     const db = admin.firestore();
     
     const urlFramaTechUAT = "https://mail.framatech.canplast.net/api/send_massive_invoice"
